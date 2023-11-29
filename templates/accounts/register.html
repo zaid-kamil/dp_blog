@@ -1,0 +1,39 @@
+{% extends 'layout/base.html' %}
+{% block css %}
+<style>
+    body {
+        background-color: #dbf79f;
+    }
+</style>
+{% endblock css %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Register</h2>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId"
+                        placeholder="Username">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                        placeholder="abc@mail.com">
+                </div>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="pass" id="pass" placeholder="password">
+                </div>
+                <div class="mb-3">
+                    <label for="cpass" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" name="cpass" id="cpass" placeholder="confirm password">
+                </div>
+                <button class="btn btn-success">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
