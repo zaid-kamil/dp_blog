@@ -15,6 +15,13 @@ def register_view(request):
             messages.error(request, "Passwords do not match")
             return redirect('register')
         # more validation can be added here
+        # check if user already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect('register')
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists")
+            return redirect('register')
         # user create karo
         user = User.objects.create_user(username, email, password)
         messages.success(request, "Account created successfully")
@@ -24,13 +31,13 @@ def register_view(request):
     
 def login_view(request):
     if request.method == "POST":
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('pass')
-        if len(email) == 0 or len(password) == 0:
+        if len(username) == 0 or len(password) == 0:
             messages.error(request, "Bad Login details!")
             return redirect('login')
         # user authenticate karo
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request,username=username, password=password)
         if user is not None:
             messages.success(request, "Logged in successfully")
             login(request, user)

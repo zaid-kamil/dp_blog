@@ -13,6 +13,7 @@
             <form method="post">
                 {% csrf_token %}
                 <h2>Register</h2>
+                {% include 'components/message.html' %}
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId"

@@ -4,22 +4,29 @@
 {% block css %}
 <style>
     body {
-        background-color: #f7bc9f;
+        background-image: radial-gradient(#dbf79f, #a8dba8, #79bd9a);
     }
+    #login-box{
+        min-height: 80vh;
+        padding-top: 5rem;
+    }
+    
 </style>
 {% endblock css %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="login-box">
     <div class="row">
         <div class="col-lg-4 mx-auto">
             <form method="post">
                 {% csrf_token %}
+                <h2>Login</h2>
+                {% include 'components/message.html' %}
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
-                        placeholder="Your Email">
-                    <small id="helpId" class="form-text text-muted">enter your registered email</small>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId"
+                        placeholder="Your username">
+                    <small id="helpId" class="form-text text-muted">enter your registered username</small>
                 </div>
                 <div class="mb-3">
                     <label for="pass" class="form-label">Password</label>
