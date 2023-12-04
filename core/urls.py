@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')), # linking to accounts/urls.py to core/urls.py
+    path('', include('blog.urls')) # step 1. link the url
 ]
