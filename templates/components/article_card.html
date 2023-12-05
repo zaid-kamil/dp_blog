@@ -1,0 +1,35 @@
+{% load static %}
+<style>
+    .card-img-top {
+        object-fit: cover;
+    }
+</style>
+<div class="col-lg-3 col-md-6">
+    <div class="card shadow-sm">
+        <img src="{{item.image.url}}" alt="{{item.title}}" class="card-img-top" height="300">
+        <div class="card-body">
+            <a href="{% url 'detail' item.id %}" class="card-title fs-5 nav-link">
+                {{item.title}}
+            </a>
+            <p class="card-text">
+                {{item.content}}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'detail' item.id %}" class="btn btn-sm btn-outline-secondary">View</a>
+                    {% if item.author == user %}
+                    <a href="{% url 'edit' item.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    {% else %}
+                    <a class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-hand-thumbs-up"></i>
+                        {{item.likes}}
+                    </a>
+                    {% endif %}
+                </div>
+                <small class="text-body-secondary">
+                    {{item.create_at}}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
