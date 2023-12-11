@@ -1,5 +1,52 @@
 {% extends 'layout/base.html' %}
 {% load static %}
-{% block content %}
 
+{% block css %}
+<style>
+    .article-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <img src="{{article.image.url}}" alt="{{article.title}}" class="article-img">
+</div>
+<div class="container ">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="display-2">
+                <strong>
+                    {{article.title|title}}
+                </strong>
+            </div>
+            <div class="info d-flex justify-content-between">
+                <span>
+                    <i class="bi bi-person"></i>
+                    {{article.author}}
+                </span>
+                <span>
+                    <i class="bi bi-tag"></i>
+                    {{article.topic}}
+                </span>
+                <span>
+                    <i class="bi bi-calendar"></i>
+                    {{article.create_at|date:"d/m/Y"}}
+                </span>
+            </div>
+            <hr>
+            {{article.content}}
+            <hr>
+            {% if article.author == user %}
+            <a href="{% url 'edit' article.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'inc_like' article.id %}" role="button">Likes {{article.likes}}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

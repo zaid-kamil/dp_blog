@@ -22,10 +22,20 @@
 
             <div class="text-end">
                 {% if user.is_authenticated %}
-                {% if user.is_superuser %}
-                <a href="{% url 'admin:index' %}" class="btn btn-outline-light me-2">Dashboard</a>
-                {% endif %}
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger me-2">Logout</a>
+                <div class="dropdown open">
+                    <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{user.username|title}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">Dashboard</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'my_articles' %}">My Articles</a>
+                        <a class="dropdown-item" href="{% url 'add' %}">Create</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
                 <a href="{% url 'register' %}" class="btn btn-warning">Sign-up</a>
