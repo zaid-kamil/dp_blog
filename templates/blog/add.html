@@ -1,5 +1,52 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
-
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto my-5">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="display-5">Create your article</h1>
+                    {% include 'components/message.html' %}
+                    <form method="post" enctype="multipart/form-data" autocomplete="false">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control form-control-lg" name="title" id="title"
+                                aria-describedby="titlehelp" placeholder="your article's title" />
+                            <small id="titlehelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content</label>
+                            <textarea class="form-control form-control-lg" name="content" id="content" rows="10"
+                                aria-describedby="contentHelp"></textarea>
+                            <small id="contentHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Choose Article Image</label>
+                            <input type="file" class="form-control form-control-lg" name="image" id="image"
+                                placeholder="select image" aria-describedby="imageHelp" />
+                            <div id="imageHelp" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="topic" class="form-label">Topic</label>
+                            <select class="form-select form-select-lg" name="topic" id="topic">
+                                {% for topic in topics %}
+                                <option value="{{ topic.id }}">{{ topic.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Create Article
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
