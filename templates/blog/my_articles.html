@@ -1,5 +1,24 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
+<div class="container my-3">
+    <div class="row">
 
+        {% for item in articles %}
+        {% include 'components/article_card.html' %}
+        {% empty %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No Articles Available</h4>
+            <p>You can create an account and write new articles for us</p>
+            <hr>
+            <p class="mb-0">
+                Are you are budding writer?
+                <a href="{% url 'register' %}">Register here</a>
+                to write articles for us
+            </p>
+        </div>
+        {% endfor %}
+        <!-- pagination -->
+    </div>
+</div>
 {% endblock %}
