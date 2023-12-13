@@ -11,7 +11,7 @@ def home_view(request):
     article_list = Article.objects.all()
     topic_list = Topic.objects.all()
     # pagination
-    paginator = Paginator(article_list, 12)
+    paginator = Paginator(article_list, 8)
     page = request.GET.get('p',1)
     # get articles for this page
     articles = paginator.get_page(page)
@@ -72,8 +72,35 @@ def detail_view(request, id):
 
 @login_required
 def edit_view(request, id):
-    # todo
-    return render(request, 'blog/add.html')
+    if request.method == "POST":
+        article = Article.objects.get(id=id)
+        
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        topic_id = request.POST.get('topic')
+        topic = Topic.objects.get(id=topic_id) # get topic object from id
+        image = request.FILES.get('image')
+        author = request.user
+        if len(title) < 3:
+            messages.error(request, 'Title must be at least 3 characters.')
+            return redirect('edit', id=id) 
+        if len(content) < 50:
+            messages.error(request, 'Content must be at least 50 characters.')
+            return redirect('edit', id=id) 
+        if not image: # if no image is uploaded, use the old one
+            image = article.image
+        # edit article
+        article.title = title
+        article.content = content
+        article.topic = topic
+        article.image = image
+        article.save()
+        messages.success(request, 'Article updated successfully.')
+        return redirect('my_articles')
+    return render(request, 'blog/add.html',{
+        'article': Article.objects.get(id=id),  # current article
+        'topics': Topic.objects.all()           # all topics
+    })
 
 @login_required
 def delete_view(request, id):

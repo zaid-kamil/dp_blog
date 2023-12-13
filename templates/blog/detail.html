@@ -43,6 +43,7 @@
             <hr>
             {% if article.author == user %}
             <a href="{% url 'edit' article.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="{% url 'delete' article.id %}" class="btn btn-sm btn-danger">Delete</a>
             {% else %}
             <a class="btn btn-primary" href="{% url 'inc_like' article.id %}" role="button">Likes {{article.likes}}</a>
             {% endif %}

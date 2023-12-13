@@ -13,26 +13,36 @@
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control form-control-lg" name="title" id="title"
-                                aria-describedby="titlehelp" placeholder="your article's title" />
+                                aria-describedby="titlehelp" placeholder="your article's title" {% if article %}
+                                value="{{ article.title }}" {% endif %} />
                             <small id="titlehelp" class="form-text text-muted"></small>
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">Content</label>
                             <textarea class="form-control form-control-lg" name="content" id="content" rows="10"
-                                aria-describedby="contentHelp"></textarea>
+                                aria-describedby="contentHelp">{% if article %}{{ article.content }}{% endif %}</textarea>
                             <small id="contentHelp" class="form-text text-muted"></small>
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Choose Article Image</label>
                             <input type="file" class="form-control form-control-lg" name="image" id="image"
                                 placeholder="select image" aria-describedby="imageHelp" />
-                            <div id="imageHelp" class="form-text"></div>
+                            <div id="imageHelp" class="form-text">
+                                {% if article %}
+                                current image: <a href="{{article.image.url}}">{{ article.image }}</a>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="topic" class="form-label">Topic</label>
                             <select class="form-select form-select-lg" name="topic" id="topic">
                                 {% for topic in topics %}
-                                <option value="{{ topic.id }}">{{ topic.name }}</option>
+                                <option value="{{ topic.id }}"
+                                    {% if article.topic.name == topic.name %}
+                                        selected
+                                    {% endif %} >
+                                    {{ topic.name }}
+                                </option>
                                 {% endfor %}
                             </select>
                         </div>
